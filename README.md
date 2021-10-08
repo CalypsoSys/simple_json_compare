@@ -13,7 +13,7 @@ import (
 
 func main() {
 	ignorePaths := []string{"root->target->end_time->*", "root->data->*->pct_used->*"}
-	diff, differences, err := CompareJSONFiles("test1.json", "test2.json", ignorePaths)
+	diff, differences, err := simple_json_compare.CompareJSONFiles("test1.json", "test2.json", ignorePaths)
 	if err != nil {
 		fmt.Printf("Errors: %v+\n", err)
 	} else if diff == false {
