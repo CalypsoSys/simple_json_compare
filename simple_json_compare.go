@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -72,6 +73,7 @@ func compareJSON(leftJSON []string, rightJSON []string, ignorePaths []string) (b
 	for index, element := range leftJSON {
 		if foundInLeft[index] == false && isIgnored(element, ignorePaths) == false {
 			differences = append(differences, fmt.Sprintf("left: %s", element))
+			diff = true
 		}
 	}
 	for index, element := range rightJSON {
@@ -89,9 +91,17 @@ func isIgnored(element string, ignorePaths []string) bool {
 		if element == ignore {
 			return true
 		} else if strings.HasSuffix(ignore, "->*") {
-			li := strings.LastIndex(element, "->")
-			if element[:li] == ignore[:len(ignore)-3] {
+			le := strings.LastIndex(element, "->")
+
+			if element[:le] == ignore[:len(ignore)-3] {
 				return true
+			}
+		} else if strings.Contains(ignore, "->*R[") && strings.HasSuffix(ignore, "]") {
+			li := strings.LastIndex(ignore, "->*R[")
+			if len(element) > li && element[:li] == ignore[:li] {
+				if ok, _ := regexp.MatchString(fmt.Sprintf("^%s$", ignore[li+5:len(ignore)-1]), element[li:]); ok {
+					return true
+				}
 			}
 		}
 	}
