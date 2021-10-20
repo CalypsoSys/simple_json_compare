@@ -3,15 +3,15 @@ A very rudimentary JSON compare package
 
 Ignore path that end with "->*" will ignore last element
 Example:
-Ignore Spec ==> "root->target->end_time->*"
-Ignored     ==> "root->target->end_time"
-Ignored     ==> "root->target->end_time->08:13:13"
-Not Ignored ==> "root->target->end_time->date->08-13-1988"
+* Ignore Spec ==> "root->target->end_time->*"
+* Ignored     ==> "root->target->end_time"
+* Ignored     ==> "root->target->end_time->08:13:13"
+* Not Ignored ==> "root->target->end_time->date->08-13-1988"
 
 Ignore path that ends with "->*R[regex]" will ignore last element if it matches the supplied regular expression
-Ignore Spec ==> "root->address->*->connectivity->*->ips->*R[->\\d+->\\d+\\.\\d+\\.\\d+\\.\\d+;\\d+]"
-Ignored     ==> "root->address->*->connectivity->*->ips->0->169.254.169.254;8"
-Not Ignored ==> "root->address->*->connectivity->*->ips->0->169.254.169.254;8a"
+* Ignore Spec ==> "root->address->*->connectivity->*->ips->*R[->\\d+->\\d+\\.\\d+\\.\\d+\\.\\d+;\\d+]"
+* Ignored     ==> "root->address->*->connectivity->*->ips->0->169.254.169.254;8"
+* Not Ignored ==> "root->address->*->connectivity->*->ips->0->169.254.169.254;8a"
 
 Sample code
 
