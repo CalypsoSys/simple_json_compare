@@ -93,7 +93,7 @@ func isIgnored(element string, ignorePaths []string) bool {
 		} else if strings.HasSuffix(ignore, "->*") {
 			le := strings.LastIndex(element, "->")
 
-			if element[:le] == ignore[:len(ignore)-3] {
+			if element == ignore[:len(ignore)-3] || element[:le] == ignore[:len(ignore)-3] {
 				return true
 			}
 		} else if strings.Contains(ignore, "->*R[") && strings.HasSuffix(ignore, "]") {
